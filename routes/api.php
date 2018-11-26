@@ -21,6 +21,12 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
+
+        Route::get('/product', 'API\ProductController@index')->name('api.product.list');
+        Route::post('/product/create', 'API\ProductController@store')->name('api.product.create');
+        Route::put('/product/update/{id}', 'API\ProductController@update')->name('api.product.update');
+        Route::delete('/product/delete/{id}', 'API\ProductController@destroy')->name('api.product.delete');
+        Route::get('/product/{id}', 'API\ProductController@show')->name('api.product');
     });
 
     Route::post('/register', 'API\AuthController@register')->name('register.api');
