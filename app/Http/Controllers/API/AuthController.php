@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\Token;
@@ -20,9 +21,9 @@ class AuthController extends Controller
 {
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return Response
      */
-    public function register(Request $request)
+    public function register(Request $request): Response
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191',
@@ -48,9 +49,9 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return Response
      */
-    public function login(Request $request): JsonResponse
+    public function login(Request $request): Response
     {
         /** @var User $user */
         $user = User::where('email', $request->email)->first();
@@ -70,9 +71,9 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return Response
      */
-    public function logout(Request $request): JsonResponse
+    public function logout(Request $request): Response
     {
         /** @var Token $token */
         $token = $request->user()->token();

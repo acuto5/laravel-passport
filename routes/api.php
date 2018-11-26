@@ -14,11 +14,18 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => ['json.response']], function () {
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
+
+    Route::group(['middleware' => ['auth:api']], function () {
+        Route::get('/logout', 'API\AuthController@logout')->name('logout.api');
+
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
     });
 
-    Route::post('/register', 'API\\AuthController@register')->name('register.api');
+    Route::post('/register', 'API\AuthController@register')->name('register.api');
+
+    Route::post('/login', 'API\AuthController@login')->name('login.api');
 });
 
 
