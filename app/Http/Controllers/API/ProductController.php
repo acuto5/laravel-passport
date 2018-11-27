@@ -6,6 +6,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\ProductRequest;
 use App\Product;
+use App\User;
+use Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,7 +26,17 @@ class ProductController extends Controller
      */
     public function index(): Response
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        $discount = $user->roles()->max('discount');
+
         $products = Product::query()->paginate();
+
+        /** @var Product $product */
+        foreach ($products->items() as &$product) {
+            $product->price = number_format(($product->price * (100 - $discount)) / 100, 2);
+        }
 
         return response($products);
     }
