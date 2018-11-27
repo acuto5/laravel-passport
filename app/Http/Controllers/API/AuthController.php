@@ -23,7 +23,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function register(Request $request): Response
+    public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191',
@@ -38,7 +38,7 @@ class AuthController extends Controller
         $request['password'] = Hash::make($request['password']);
 
         /** @var User $user */
-        $user = User::create($request->toArray());
+        $user = User::query()->create($request->toArray());
 
 
 
@@ -54,7 +54,7 @@ class AuthController extends Controller
     public function login(Request $request): Response
     {
         /** @var User $user */
-        $user = User::where('email', $request->email)->first();
+        $user = User::query()->where('email', $request->email)->first();
 
         if ($user) {
             if (Hash::check($request->password, $user->password)) {

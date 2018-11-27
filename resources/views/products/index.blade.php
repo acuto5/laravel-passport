@@ -29,10 +29,17 @@
                             <tbody>
                             @foreach($products as $product)
                                 <tr>
-                                    <th>{{ $product->id }}</th>
-                                    <th>{{ $product->title }}</th>
-                                    <th>{{ $product->price }}</th>
-                                    <th>-</th>
+                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $product->title }}</td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary" href="{{ route('product.edit', $product->id) }}">Update</a>
+                                        <form action="{{ route('product.destroy', $product->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <input type="submit" value="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
