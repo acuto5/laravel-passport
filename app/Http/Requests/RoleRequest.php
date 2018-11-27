@@ -8,6 +8,10 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
+/**
+ * Class RoleRequest
+ * @package App\Http\Requests
+ */
 class RoleRequest extends FormRequest
 {
     /**
@@ -32,7 +36,8 @@ class RoleRequest extends FormRequest
                 'required',
                 'string',
                 'min:6',
-            ]
+            ],
+            'discount' => 'required|min:0|max:50|numeric',
         ];
 
         if ($this->isMethod('POST')) {

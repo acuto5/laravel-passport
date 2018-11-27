@@ -9,6 +9,10 @@ use App\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+/**
+ * Class RoleController
+ * @package App\Http\Controllers
+ */
 class RoleController extends Controller
 {
     /**
@@ -69,7 +73,7 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role): RedirectResponse
     {
-        Role::query()->find($role->id)->update($request->toArray());
+        $role->update($request->toArray());
 
         return redirect()->route('role.index')
             ->with('status', 'Role updated successfully!');
@@ -84,7 +88,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role): RedirectResponse
     {
-        Role::query()->findOrFail($role->id)->delete();
+        $role->delete();
 
         return redirect()->route('role.index')
             ->with('status', 'Role deleted successfully!');

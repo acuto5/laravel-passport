@@ -25,6 +25,14 @@
                                 @endif
                             </div>
 
+                            <div class="form-group">
+                                <label for="discount">{{ __('Discount') }}</label>
+                                <input type="number" name="discount" id="discount" value="{{ old('discount', $role->discount) }}" class="form-control">
+                                @if($errors->has('discount'))
+                                    <div class="alert alert-danger">{{ $errors->first('discount') }}</div>
+                                @endif
+                            </div>
+
                             <input type="submit" class="btn btn-sm btn-success" value="{{ __('Save') }}">
                         </form>
 

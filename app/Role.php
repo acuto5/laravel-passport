@@ -17,6 +17,7 @@ class Role extends Model
      */
     protected $fillable = [
         'title',
+        'discount',
     ];
 
     /**
@@ -24,5 +25,6 @@ class Role extends Model
      */
     protected $casts = [
         'title' => 'string',
+        'discount' => 'float',
     ];
 }
