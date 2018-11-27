@@ -50,7 +50,7 @@
                             </li>
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('product.index') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ __('Catalog') }} <span class="caret"></span>
                                 </a>
 
@@ -67,8 +67,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="#">
                                         {{ __('Users') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('role.index') }}">
+                                        {{ __('Roles') }}
                                     </a>
                                 </div>
                             </li>
