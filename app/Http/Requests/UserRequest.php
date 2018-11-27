@@ -38,6 +38,15 @@ class UserRequest extends FormRequest
                 'email',
                 Rule::unique('users')->ignore($this->route()->parameter('user')),
             ],
+            'roles' => 'nullable|array',
         ];
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getRoleIds(): ?array
+    {
+        return $this->input('roles');
     }
 }

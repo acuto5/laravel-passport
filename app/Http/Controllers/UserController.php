@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Role;
 use App\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -37,7 +38,9 @@ class UserController extends Controller
     {
         $user = User::query()->findOrFail($id);
 
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -49,7 +52,10 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id): RedirectResponse
     {
-        User::query()->findOrFail($id)->update($request->toArray());
+        /** @var User $user */
+        $user = User::query()->findOrFail($id);
+        $user->update($request->toArray());
+        $user->roles()->sync($request->getRoleIds());
 
         return redirect()->route('user.index')
             ->with('status', 'User updated successfully!');

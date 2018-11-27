@@ -33,6 +33,19 @@
                                 @endif
                             </div>
 
+                            <div class="form-group">
+                                <label>{{ __('Roles') }}</label><br>
+                                @foreach($roles as $role)
+                                    <div class="form-check">
+                                        <input type="checkbox" name="roles[]" id="role_{{ $role->id }}" value="{{ $role->id }}" {{ (in_array($role->id, $user->roles->pluck('id')->toArray()))? 'checked' : ''}}>
+                                        <label class="form-check-label" for="role_{{ $role->id }}">{{ $role->title }}</label>
+                                    </div>
+                                @endforeach
+                                @if($errors->has('email'))
+                                    <div class="alert alert-danger">{{ $errors->first('email') }}</div>
+                                @endif
+                            </div>
+
                             <input type="submit" class="btn btn-sm btn-success" value="{{ __('Save') }}">
                         </form>
 
