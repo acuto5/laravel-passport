@@ -35,7 +35,7 @@ class ProductController extends Controller
 
         /** @var Product $product */
         foreach ($products->items() as &$product) {
-            $product->price = number_format(($product->price * (100 - $discount)) / 100, 2);
+            $product->price = sprintf('%.3f', ($product->price * (100 - $discount)) / 100);
         }
 
         return response($products);
@@ -72,19 +72,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ProductRequest $request
+     * @param Request $request
      * @param  int $id
      * @return Response
      */
     public function update(Request $request, int $id): Response
     {
-        /*
-        $product = Product::query()->find($id);
+        $product = Product::query()->find($id)->update($request->toArray());
 
-        return response((string)$product->update([
-            'title' => $request->title,
-            'price' => $request->price,
-        ], ['id' => $id]));*/
+        return response((string)$product);
     }
 
     /**
