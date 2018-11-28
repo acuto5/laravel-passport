@@ -1,10 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Providers;
 
+use App\Helpers\PriceHelper;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class AppServiceProvider
+ * @package App\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -12,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Schema::defaultStringLength(191);
     }
@@ -22,8 +29,18 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        //
+        $this->registerFacades();
+    }
+
+    /**
+     * @return void
+     */
+    private function registerFacades(): void
+    {
+        $this->app->bind('price.convert', function () {
+            return new PriceHelper();
+        });
     }
 }
