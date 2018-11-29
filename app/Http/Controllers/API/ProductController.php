@@ -27,6 +27,7 @@ class ProductController extends Controller
      */
     public function index(): Response
     {
+        $currency = 'GBPfd';
         /** @var User $user */
         $user = Auth::user();
 
@@ -37,6 +38,9 @@ class ProductController extends Controller
         /** @var Product $product */
         foreach ($products->items() as &$product) {
             $product->price = PriceConvert::discountedPrice($product->price, $discount);
+            $product->price_in_cents = PriceConvert::convertToCents($product->price);
+            $product->price_in_currency = (float)number_format(PriceConvert::convertToCurrency($product->price, $currency), 2);
+            $product->currency = $currency;
         }
 
         return response($products);
