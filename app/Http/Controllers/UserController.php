@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use App\Role;
 use App\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 /**
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        $users = User::query()->paginate();
+        $users = Cache::get('users');
 
         return view('users.index', compact('users'));
     }

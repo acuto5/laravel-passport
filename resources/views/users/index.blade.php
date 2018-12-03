@@ -42,13 +42,6 @@
                                 </tr>
                             @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="4">
-                                    {{ $users->links() }}
-                                    </td>
-                                </tr>
-                            </tfoot>
                         </table>
 
                     </div>
